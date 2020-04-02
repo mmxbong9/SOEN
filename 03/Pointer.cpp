@@ -96,7 +96,7 @@ namespace SOEN
 			}
 		}
 
-		// 문제 1 : int arr[3][3]; 과 같은 배열은 내부적으로 어떻게 처리되는지 생각해 보세요.
+		printf("문제 1 : int arr[3][3]; 과 같은 배열은 내부적으로 어떻게 처리되는지 생각해 보세요. \n");
 		int arr2[3][3] = { {1,2,3}, {1,2,3}, {1,2,3} };
 
 		for (int i = 0; i < 3; i++)
@@ -108,8 +108,8 @@ namespace SOEN
 			}
 		}
 
-		// 문제 2 : int* arr[3]; 과 같은 배열이 가지는 의미는 무엇일까요?
-		// int* type 의 주소를 담는 arr[3] 배열.
+		printf("문제 2 : int* arr[3]; 과 같은 배열이 가지는 의미는 무엇일까요? \n");
+		printf(" >> int* 타입의 array[3] 배열.");
 	}
 
 	void ArrayToPointerDecay()

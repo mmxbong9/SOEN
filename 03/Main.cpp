@@ -8,6 +8,7 @@ using namespace SOEN;
 
 int main()
 {
+    AboutVariableAndPointer();
     Pointer();
     ConstPointer();
     PointerArray();

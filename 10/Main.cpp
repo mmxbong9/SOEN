@@ -170,6 +170,69 @@ namespace SOEN
         free(name);
         */
     }
+
+    void DynamicStringArray();
+    void DynamicStringArray()
+    {
+        int len = 10;
+        int num = 5;
+        int i;
+        
+        char** name;
+        name = (char**)malloc(num * sizeof(char*));
+
+        for (i = 0; i < num; i++)
+        {
+            name[i] = (char*)malloc(len * sizeof(char));
+        }
+
+        for (i = 0; i < num; i++)
+        {
+            sprintf(name[i], "string %d", i);
+            puts(name[i]);
+        }
+
+        for (i = 0; i < num; i++)
+        {
+            free(name[i]);
+        }
+
+        free(name);
+    }
+
+    void VoidDoublePointer();
+    void VoidDoublePointer()
+    {
+        void* vp;
+        void* av[5];
+        void** vpp;
+        int i, * pi = &i;
+
+        vpp = &vp;  // ok
+        vpp = av;   // ok
+        vpp++;      // ok
+        *vpp;       // ok
+        //vpp = &pi;// problem. only void type pointer address.
+        //**vpp;    // void type 의 연산자는 value 를 바로 사용 할 수 는 없고, 해당 value type 으로 casting 을 한 후에 접근이 가능하다.
+    }
+
+    void Allocation(void** mem, size_t size);
+    void Allocation(void** mem, size_t size)
+    {
+        *mem = malloc(size);
+    }
+
+    void UsingVoidDoublePointer();
+    void UsingVoidDoublePointer()
+    {
+        void* vp;
+
+        Allocation(&vp, sizeof(int));
+        *(int*)vp = 1234;
+
+        printf("%d\n", *(int*)vp);
+        free(vp);
+    }
 }
 
 using namespace SOEN;
@@ -191,4 +254,7 @@ int main()
     UsingDoublePointer();
 
     //NotworkingPointer();
+
+    DynamicStringArray();
+    UsingVoidDoublePointer();
 }

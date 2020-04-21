@@ -12,4 +12,6 @@ namespace SOEN
 	void ArrayToPointerDecay();
 	void ArrayDecay1(int* array);
 	void ArrayDecay2(int array[]);
+
+	void plusref(int* a);
 }

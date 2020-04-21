@@ -194,4 +194,9 @@ namespace SOEN
 	{
 		printf("ArrayDecay2 >> sizeof(array) = %d \n", sizeof(array));
 	}
+
+	void plusref(int* a)
+	{
+		*a = *a + 1;
+	}
 }

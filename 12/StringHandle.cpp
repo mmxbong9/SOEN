@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <ctime>
+#include <windows.h>
+#include <conio.h>
 
 #include "StringHandle.h"
 
@@ -102,17 +106,186 @@ namespace SOEN
 
 	void StringRightRotation()
 	{
-		// k 번 만큼 회전하는 Rotate 함수를 작성.
+		char str[6] = "hello";
+
+		StringRightRotate(str, 0, strlen(str));
 	}
 
-	void RightRotate(int arr[], int first, int end)
+	void StringRightRotate(char arr[], int first, int end)
 	{
-		int last = arr[end];
+		char lastValue = arr[end - 1];
+
+		printf("last value : %c\n", lastValue);
 
 		for (int i = end; i > first; i--)
 		{
 			arr[i] = arr[i - 1];
+			//printf("%c", arr[i]);
 		}
-		arr[first] = last;
+		arr[first] = lastValue;
+
+		printf("result [ ");
+		for (int i = 0; i < end; i++)
+		{
+			arr[i];
+			printf("%c", arr[i]);
+		}
+		printf(" ]\n");
+	}
+
+	void IntegerRightRotation()
+	{
+		int intArray[] = { 1, 2, 3, 4, 5 };
+		int arraySize = sizeof(intArray) / sizeof(int);
+
+		IntegerRightRotate(intArray, 0, arraySize);
+		IntegerRightRotate(intArray, 0, arraySize);
+	}
+
+	void IntegerRightRotate(int arr[], int first, int end)
+	{
+		int lastValue = arr[end - 1];
+
+		for (int i = end - 1; i > first; i--)
+		{
+			arr[i] = arr[i - 1];
+			//printf("index is %d = %d ", i, arr[i]);
+		}
+		arr[first] = lastValue;
+
+		printf("\n");
+		printf("Right Rotation Result : [ ");
+
+		for (int i = 0; i < end; i++)
+		{
+			printf("index is %d = %d ", i, arr[i]);
+		}
+
+		printf(" ]\n");
+	}
+
+	void HangMan()
+	{
+		/* 기능 및 조건 정리.
+		 1. 정답으로 사용할 단어 목록 작성.
+		 2. 난수로 단어를 선택.
+		 3. 사용자의 문자 입력 기능 : 사용 가능한 사용자의 문자 타입은 영문자.
+		 4. 사용자가 입력한 문자의 정보를 보여주기.
+		 5. 게임 종료 조건 : 7회 이상 틀린 글자를 입력 할 경우 게임 종료 처리.
+		 6. 사용자 중복 문자 입력 방지 조건 : 영문자만 입력, 이미 찾았거나 한 번 틀린 문자는 입력 거부.
+		*/
+
+		// 1. 정답으로 사용할 단어 목록 작성.
+		const int wordLength = 10;
+		const int wordMax = 3;
+		char words[wordMax][wordLength] = { "fine", "apple", "sweet" };
+
+		// 2. 난수로 단어 선택.
+		srand((unsigned int)time(NULL));
+
+		for (int i = 0; i < wordMax; i++)
+		{
+			int num = rand();
+			printf("random test > %d : %d\n", num, num % wordMax);
+			Sleep(250);
+		}
+
+		int selectedIndex = rand() % wordMax;
+		printf("seledted Index = %d\n", selectedIndex);
+
+		char selectedWord[wordLength];
+		strcpy(selectedWord, words[selectedIndex]);
+
+		printf("seledted word = %s\n", selectedWord);
+
+		// 3. 사용자의 문자 입력 기능 : 사용 가능한 사용자의 문자 타입은 영문자.
+		char findWord[wordLength];
+		strcpy(findWord, selectedWord);
+
+		int findWorldLength = strlen(findWord);
+
+		printf("findWorldLength = %d\n", findWorldLength);
+		
+		for (int i = 0; i < findWorldLength; i++)
+		{
+			findWord[i] = '*';
+		}
+
+		printf("initialize findWord = [ %s ]\n", findWord);
+
+		int wrongInputCount = 0;
+
+		char ch;
+		for (;;)
+		{
+			ch = _getch();
+
+			if (isalpha(ch))
+			{
+				char alpabet = tolower(ch);
+
+				if (strchr(selectedWord, ch) != NULL)
+				{
+					printf("find word : %c\n", alpabet);
+
+					int isfindChar = FALSE;
+
+					for (int i = 0; i < findWorldLength; i++)
+					{
+						if (selectedWord[i] == alpabet && findWord[i] == '*')
+						{
+							isfindChar = TRUE;
+
+							findWord[i] = alpabet;
+						}
+						else if (selectedWord[i] == alpabet)
+						{
+							printf("aleady find user input character : %c", alpabet);
+						}
+					}
+
+					if (isfindChar == FALSE)
+					{
+						printf("not find word : %c\n", alpabet);
+					}
+				}
+				else
+				{
+					wrongInputCount++;
+
+					printf("not find word : %c , wrong input count [ %d ] \n", alpabet, wrongInputCount);
+				}
+
+				// 4. 사용자가 입력한 문자의 정보를 보여주기.
+				printf("Display Word = [ %s ] , current wrong input count [ %d ] \n", findWord, wrongInputCount);
+
+				// 게임 종료 체크.
+				int isGameComplete = TRUE;
+
+				for (int i = 0; i < findWorldLength; i++)
+				{
+					if (findWord[i] == '*')
+					{
+						isGameComplete = FALSE;
+					}
+				}
+
+				if (isGameComplete)
+				{
+					printf("GameComplete. input Count [ %d ]\n", wrongInputCount);
+					break;
+				}
+				else
+				{
+					int isGameOver = FALSE;
+
+					if (wrongInputCount >= 7)
+					{
+						printf("GameOver. input Count [ %d ]\n", wrongInputCount);
+						break;
+					}
+				}
+			}
+		}
 	}
 }

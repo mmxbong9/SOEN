@@ -170,9 +170,10 @@ namespace SOEN
 		 1. 정답으로 사용할 단어 목록 작성.
 		 2. 난수로 단어를 선택.
 		 3. 사용자의 문자 입력 기능 : 사용 가능한 사용자의 문자 타입은 영문자.
-		 4. 사용자가 입력한 문자의 정보를 보여주기.
-		 5. 게임 종료 조건 : 7회 이상 틀린 글자를 입력 할 경우 게임 종료 처리.
-		 6. 사용자 중복 문자 입력 방지 조건 : 영문자만 입력, 이미 찾았거나 한 번 틀린 문자는 입력 거부.
+		 4-1. 사용자 중복 문자 입력 방지 조건 : 영문자만 입력.
+		 4-2. 사용자 중복 문자 입력 방지 조건 : 이미 찾았거나 한 번 틀린 문자는 입력 거부.
+		 5. 사용자가 입력한 문자의 정보를 보여주기.
+		 6. 게임 종료 조건 : 7회 이상 틀린 글자를 입력 할 경우 게임 종료 처리.
 		*/
 
 		// 1. 정답으로 사용할 단어 목록 작성.
@@ -220,6 +221,7 @@ namespace SOEN
 		{
 			ch = _getch();
 
+			// 4-1. 사용자 중복 문자 입력 방지 조건 : 영문자만 입력.
 			if (isalpha(ch))
 			{
 				char alpabet = tolower(ch);
@@ -228,6 +230,7 @@ namespace SOEN
 				{
 					printf("find word : %c\n", alpabet);
 
+					// 4-2. 사용자 중복 문자 입력 방지 조건 : 한 번 틀린 문자는 입력 거부.
 					int isfindChar = FALSE;
 
 					for (int i = 0; i < findWorldLength; i++)
@@ -256,10 +259,10 @@ namespace SOEN
 					printf("not find word : %c , wrong input count [ %d ] \n", alpabet, wrongInputCount);
 				}
 
-				// 4. 사용자가 입력한 문자의 정보를 보여주기.
+				// 5. 사용자가 입력한 문자의 정보를 보여주기.
 				printf("Display Word = [ %s ] , current wrong input count [ %d ] \n", findWord, wrongInputCount);
 
-				// 게임 종료 체크.
+				// 6. 게임 종료 조건 : 7회 이상 틀린 글자를 입력 할 경우 게임 종료 처리.
 				int isGameComplete = TRUE;
 
 				for (int i = 0; i < findWorldLength; i++)

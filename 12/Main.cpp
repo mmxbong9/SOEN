@@ -31,6 +31,7 @@ int main()
 	//std::cout << "String Right Rotation\n";
 	//StringRightRotation();
 
+	/*
 	std::cout << "HangMan" << std::endl;
 	std::cout << " 숨겨진 영어 단어를 맞추는 게임이다. 몇개의 단어 목록을 작성하고, 난수로 단어를 선택한 후" << std::endl;
 	std::cout << " 사용자가 입력한 문자가 단어의 어떤 위치에 있는지 보여준다. 사용자는 임의의 문자를 입력해 보고" << std::endl;
@@ -39,4 +40,7 @@ int main()
 	std::cout << " 영문자만 입력 받아야 하며, 이미 찾았거나 한 번 틀린 문자는 입력을 거부해야 한다." << std::endl;
 
 	HangMan();
+	*/
+
+	StrFunc();
 }

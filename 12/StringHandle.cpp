@@ -10,6 +10,8 @@
 
 #include "StringHandle.h"
 
+#define putch _putch
+
 namespace SOEN
 {
 	void StringCopy()
@@ -290,5 +292,351 @@ namespace SOEN
 				}
 			}
 		}
+	}
+
+	void my_puts(const char* str)
+	{
+		while (*str)
+		{
+			putch(*str++);
+		}
+
+		putch('\n');
+	}
+
+	void my_puts2(const char* str)
+	{
+		int i;
+
+		for (i = 0; str[i]; i++)
+		{
+			putch(str[i]);
+		}
+
+		putch('\n');
+	}
+		
+	char* my_strcpy(char* dest, const char* src)
+	{
+		char* d = dest;
+		while (*dest++ = *src++)
+		{
+			;
+		}
+
+		return d;
+	}
+	
+	size_t my_strlen(const char* str)
+	{
+		const char* p;
+
+		for (p = str; *p; p++)
+		{
+			//printf("current address = %d\n", p);
+		}
+
+		//printf("  p address = %d\n", p);
+		//printf("str address = %d\n", str);
+
+		//printf("string length = %d\n", p - str);
+
+		return p - str;
+	}
+
+	size_t my_strlen2(const char* str)
+	{
+		int i;
+
+		for (i = 0; str[i]; i++)
+		{
+			;
+		}
+
+		//printf("string length = %d\n", i);
+
+		return i;
+	}
+
+	char* my_strcat(char *dest, const char* src)
+	{
+		my_strcpy(dest + my_strlen(dest), src);
+
+		//printf("my_strcat() result = %s\n", dest);
+
+		return dest;
+	}
+
+	char* my_strchr(const char* string, int c)
+	{
+		while (*string)
+		{
+			if (*string == c)
+			{
+				return (char*)string;
+			}
+			string++;
+		}
+
+		return NULL;
+	}
+
+	char* my_strstr(const char* string, const char* strSearch)
+	{
+		const char* s;
+		const char* sub;
+
+		for (; *string; string++)
+		{
+			//printf("looping string = %c , strSearch = %c\n", *string, *strSearch);
+
+			for (sub = strSearch, s = string; *sub && *s && *s == *sub; sub++, s++)
+			{
+				//printf("  >> searching : string = %c , strSearch = %c\n", *s, *sub);
+			}
+
+			if (*sub == 0)
+			{
+				printf("find string\n");
+				return (char*)string;
+			}
+		}
+
+		return NULL;
+	}
+
+	int my_strcmp(const char* str1, const char* str2)
+	{
+		//printf("compare string value = %s , %s\n", str1, str2);
+
+		char c1, c2;
+		
+		while (1)
+		{
+			c1 = *str1++;
+			c2 = *str2++;
+
+			//printf("c1 value = %d ", c1);
+			//printf("c2 value = %d\n", c2);
+
+			if (c1 != c2)
+			{
+				return c1 < c2 ? -1 : 1;
+			}
+
+			if (c1 == 0)
+			{
+				//printf("c1, c2 value is equal.\n while loop break.\n");
+				break;
+			}
+		}
+
+		return 0;
+	}
+
+	int my_stricmp(const char* str1, const char* str2)
+	{
+		char c1, c2;
+
+		while (1)
+		{
+			c1 = tolower(*str1++);
+			c2 = tolower(*str2++);
+
+			if (c1 != c2)
+			{
+				return c1 < c2 ? -1 : 1;
+			}
+
+			if (c1 == 0)
+			{
+				break;
+			}
+		}
+
+		return 0;
+	}
+
+	char* my_strncpy(char* dest, const char* src, size_t count)
+	{
+		char* d = dest;
+
+		while (*dest++ = *src++)
+		{
+			//printf("now count = %d\n", count);
+
+			if (count-- <= 0)
+			{
+				//printf("count is zero or under value. break loop\n");
+				break;
+			}
+		}
+
+		//printf("return value = %s\n", d);
+		return d;
+	}
+
+	char* my_strncat(char* dest, const char* src, size_t count)
+	{
+		int destLength = my_strlen(dest);
+
+		my_strncpy(dest + destLength, src, count);
+
+		//printf("my_strncat() count = %d\n", count);
+
+		dest[destLength + count] = '\0';
+
+		return dest;
+	}
+
+	void stradd(char* dest, int c)
+	{
+		int len = strlen(dest);
+
+		dest[len] = c;
+		dest[len + 1] = 0;
+	}
+
+	char* stradd_b(char* dest, int c)
+	{
+		while (*dest++)
+		{
+			//printf("dest = %s\n", dest);
+
+			if (*dest == 0)
+			{
+				//printf("here is null value.\n");
+				*dest = c;
+				*++dest = 0;
+			}
+		}
+
+		return dest;
+	}
+
+	char* stristr(const char* string, const char* const subString)
+	{
+		// 문자열 비교 함수인 strstr 은 대소문자 까지 정확하게 구분 한다. stristr 은 대소문자 구분없이 일치 여부를 확인 하는 함수.
+		// todo : 소문자로 변환 해서 비교 하도록 코드 수정.
+
+		/*
+		const char* s;
+		const char* sub;
+
+		for (; *string; string++)
+		{
+			for (sub = subString, s = string; *sub && *s == *sub; sub++, s++)
+			{
+				;
+			}
+
+			if (*sub == 0)
+			{
+				return (char*)string;
+			}
+		}
+		*/
+
+		return NULL;
+	}
+
+	void StrFunc()
+	{
+		const char srcStr[7] = "source";
+		char destStr[7];
+
+		my_strcpy(destStr, srcStr);
+
+		printf("my string copy result : %s\n", destStr);
+
+		my_puts(destStr);
+		my_puts2(destStr);
+
+		my_strlen(destStr);
+		my_strlen2(destStr);
+
+		const char srcStr1[7] = "strcat";
+		char destStr1[14] = "source2";
+
+		my_strcat(destStr1, srcStr1);
+
+		char* findChr = my_strchr(destStr1, 't');
+		printf("findChr = %c , addrsss = %d\n", *findChr, findChr);
+
+		const char* keyString = "2";
+
+		printf("source string[ %s ] finding [ %s ]\n", destStr1, keyString);
+		char* findString = my_strstr(destStr1, keyString);
+
+		if (findString != NULL)
+		{
+			printf("finished find string = %s\n", findString);
+		}
+
+		const char* compString1 = "Abc";
+		const char* compString2 = "abc";
+
+		printf("Compare Source String : A = %s , B = %s\n", compString1, compString2);
+
+		int stringCompareResult = my_strcmp(compString1, compString2);
+		if (stringCompareResult == 0)
+		{
+			printf("strcmp() : A == B\n");
+		}
+		else if (stringCompareResult < 0)
+		{
+			printf("strcmp() : A < B\n");
+		}
+		else if (stringCompareResult > 0)
+		{
+			printf("strcmp() : A > B\n");
+		}
+
+		int stringCompareResult2 = my_stricmp(compString1, compString2);
+		if (stringCompareResult2 == 0)
+		{
+			printf("stricmp() : A == B\n");
+		}
+		else if (stringCompareResult2 < 0)
+		{
+			printf("stricmp() : A < B\n");
+		}
+		else if (stringCompareResult2 > 0)
+		{
+			printf("stricmp() : A > B\n");
+		}
+
+		char destStr2[10];
+		const char srcStr2[10] = "abcdefg";
+
+		strncpy(destStr2, srcStr2, 3);
+		printf("   strncpy() result = %s\n", destStr2);
+
+		my_strncpy(destStr2, srcStr2, 2);
+		printf("my_strncpy() result = %s\n", destStr2);
+
+		char destStr3[10] = "abcd";
+		const char srcStr3[10] = "1234";
+
+		my_strncat(destStr3, srcStr3, 2);
+		printf("my_strncat() result = %s\n", destStr3);
+
+		char destStr4[10] = "abcd";
+		int srcChar = 'z';
+
+		stradd(destStr4, srcChar);
+		printf("stradd() result = %s\n", destStr4);
+
+		char destStr5[10] = "abcd";
+		int srcChar1 = 'b';
+
+		stradd_b(destStr5, srcChar1);
+		printf("stradd_b() result = %s\n", destStr5);
+
+		char targetStr[] = "targetString";
+		char targetSubStr[] = "get";
+
+		printf(" strstr() result = %s\n", strstr(targetStr, targetSubStr));
+		printf("stristr() result = %s\n", stristr(targetStr, targetSubStr));
 	}
 }
